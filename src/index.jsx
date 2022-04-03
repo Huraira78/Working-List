@@ -11,7 +11,8 @@ function Arrays() {
     }
     else
     {
-      setlistitems([...listitems,inputlist]);
+      const inputId={id:new Date().getTime().toString(),name:inputlist}
+      setlistitems([...listitems,inputId]);
       setinputlist('');
     }
    
@@ -21,7 +22,11 @@ function Arrays() {
 }
 const Delete=(id)=>{
   console.log(id);
-  const del=listitems.filter((currentElm,index)=>index!==id)
+  const del=listitems.filter((currentElm)=>{
+
+    return id!==currentElm.id
+  });
+
   setlistitems(del);
 }
   return (
@@ -35,10 +40,10 @@ const Delete=(id)=>{
         <button className='addbtn' onClick={additems} title='Add Item'>Add</button>
    
         {
-          listitems.map((dataElm,index) => {
+          listitems.map((dataElm) => {
             return <div className='second-con'>
-               <h1 className='dataStyle' key={index}>Product No{index+1}:{dataElm} 
-               <button onClick={()=>Delete(index)} title='delete item' className='delBtn'>Delete</button></h1>
+               <h1 className='dataStyle' key={dataElm.id}>Product:{dataElm.name} 
+               <button onClick={()=>Delete(dataElm.id)} title='delete item' className='delBtn'>Delete</button></h1>
             </div>
           
           })
